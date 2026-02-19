@@ -1,0 +1,5 @@
+outs:
+- md5: 6627b442dd106380a52c83a6420ab1a1
+  size: 3047
+  hash: md5
+  path: pca.joblib

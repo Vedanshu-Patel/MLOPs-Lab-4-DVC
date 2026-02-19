@@ -1,0 +1,13 @@
+{
+  "model": "IsolationForest + PCA",
+  "n_samples": 8950,
+  "n_components_pca": 10,
+  "variance_explained": 0.6375,
+  "contamination": 0.05,
+  "n_anomalies": 448,
+  "n_normal": 8502,
+  "anomaly_percentage": 5.01,
+  "anomaly_score_mean": 0.0696,
+  "anomaly_score_min": -0.1582,
+  "anomaly_score_max": 0.136
+}

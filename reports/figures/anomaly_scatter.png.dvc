@@ -1,0 +1,5 @@
+outs:
+- md5: a2c26889cf20e19ac96a183744fbde45
+  size: 288570
+  hash: md5
+  path: anomaly_scatter.png

@@ -1,0 +1,5 @@
+outs:
+- md5: c9854c66cb86d9f388b1b96553ed10cc
+  size: 39683
+  hash: md5
+  path: anomaly_scores.png

@@ -1,0 +1,9 @@
+*.dvcignore
+*.json
+credentials.json
+!reports/metrics.json
+venv/
+data/raw/*.csv
+data/processed/*.csv
+models/*.pkl
+models/*.joblib
