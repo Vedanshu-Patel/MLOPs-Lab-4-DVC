@@ -1,0 +1,65 @@
+# GitHub Actions: runs the ML pipeline on every push to main.
+# Pulls data from GCS using DVC, trains the model, uploads metrics.
+#
+# Setup:
+#   1. In your GitHub repo → Settings → Secrets → Actions
+#   2. Add secret: GCP_CREDENTIALS  (paste the entire contents of credentials.json)
+
+name: ML Pipeline with DVC
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          pip install dvc[gs] scikit-learn pandas numpy matplotlib seaborn joblib
+
+      - name: Write GCP credentials
+        run: |
+          echo '${{ secrets.GCP_CREDENTIALS }}' > credentials.json
+
+      - name: Configure DVC remote credentials
+        run: |
+          dvc remote modify myremote credentialpath credentials.json
+
+      - name: Pull data from GCS
+        run: |
+          dvc pull --force
+
+      - name: Run preprocessing
+        run: python src/preprocess.py
+
+      - name: Train model
+        run: python src/train.py
+
+      - name: Show metrics
+        run: cat reports/metrics.json
+
+      - name: Upload metrics artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: metrics
+          path: reports/metrics.json
+
+      - name: Upload figures
+        uses: actions/upload-artifact@v4
+        with:
+          name: cluster-plots
+          path: reports/figures/

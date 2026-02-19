@@ -7,3 +7,4 @@ data/raw/*.csv
 data/processed/*.csv
 models/*.pkl
 models/*.joblib
+reports/figures/*.png
